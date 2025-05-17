@@ -39,6 +39,7 @@ dependencies {
     implementation 'org.mapstruct:mapstruct:1.6.3' // TODO: ????
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3' // TODO: ????
     implementation 'com.cronutils:cron-utils:9.2.0'
+    implementation 'org.springdoc:springdoc-openapi-webflux-ui:1.8.0'
 }
 
 // Tests
