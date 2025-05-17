@@ -7,6 +7,7 @@ import com.faspix.cryptorate.entity.Currency;
 import com.faspix.cryptorate.repository.CurrencyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 
 import java.math.BigDecimal;
@@ -20,10 +21,12 @@ public class CryptoRateService {
 
     private final CurrencyRepository currencyRepository;
 
+    @Transactional(readOnly = true)
     public Flux<ResponseConvertDTO> convert(String from, String to, BigDecimal amount) {
         return null;
     }
 
+    @Transactional(readOnly = true)
     public Flux<ResponseHistoryDTO> getHistory(String from, String to, LocalDate startDate, LocalDate endDate) {
         Flux<Currency> dataFrom = currencyRepository.findByCurrencyAndTimestampBetween(
                 from,

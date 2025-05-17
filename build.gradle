@@ -36,8 +36,9 @@ dependencies {
 dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-    implementation 'org.mapstruct:mapstruct:1.6.3'
-    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
+    implementation 'org.mapstruct:mapstruct:1.6.3' // TODO: ????
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3' // TODO: ????
+    implementation 'com.cronutils:cron-utils:9.2.0'
 }
 
 // Tests

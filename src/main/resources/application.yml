@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: CryptoRate API
+
+
+scheduling:
+  fiat-rate-cron: "0 0 * * * *"
+  crypto-rate-cron: "0 */5 * * * *"
+  crypto-save-history-cron: "0 0 * * * *"

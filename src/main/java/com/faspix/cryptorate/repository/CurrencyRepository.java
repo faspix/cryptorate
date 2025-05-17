@@ -3,6 +3,7 @@ package com.faspix.cryptorate.repository;
 import com.faspix.cryptorate.entity.Currency;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
 
@@ -12,5 +13,8 @@ public interface CurrencyRepository extends ReactiveCrudRepository<Currency, Str
                                                      LocalDateTime startDate,
                                                      LocalDateTime endDate
     );
+
+
+    Mono<Currency> findTopByCurrencyOrderByTimestampDesc(String currency);
 
 }
