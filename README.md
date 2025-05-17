@@ -1,6 +1,9 @@
 # CryptoRate API
 ## Currency Converter API
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/b30b7b81c4774004befeb61364935aa5)](https://app.codacy.com/gh/faspix/cryptorate/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![CodeFactor](https://www.codefactor.io/repository/github/faspix/cryptorate/badge)](https://www.codefactor.io/repository/github/faspix/cryptorate)
+
 A reactive Spring Boot application providing currency and cryptocurrency conversion rates with historical data support.  
 Designed as a monolithic API to fetch, cache, and store exchange rates using Redis and MongoDB.
 
