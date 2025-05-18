@@ -39,7 +39,7 @@ Designed as a monolithic API to fetch, cache, and store exchange rates using Red
 
 - ###  Fetching Rates:
   - Fiat currency rates are fetched hourly from a public API and cached in Redis with a TTL slightly longer than the scheduler interval.
-  - Cryptocurrency rates are fetched every N minutes and cached similarly.
+  - Cryptocurrency rates are fetched every N minutes and cached similarly (default every 5 minutes).
   - Additionally, snapshots of crypto rates are saved into MongoDB for historical queries (default hourly).
  
 - ### Data Storage:

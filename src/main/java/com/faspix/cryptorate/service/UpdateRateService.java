@@ -38,6 +38,7 @@ public class UpdateRateService {
 
 
     public Mono<Void> updateFiatRate() {
+        LocalDateTime now = LocalDateTime.now();
         return currencyRateClient.getFiatRates() // Mono<Map<String, BigDecimal>>
                 .flatMapMany(map -> Flux.fromIterable(map.entrySet()))
                 .flatMap(entry -> {
@@ -46,12 +47,12 @@ public class UpdateRateService {
 
                     // save to Redis
                     Mono<Boolean> saveToRedis = reactiveRedisTemplate.opsForValue()
-                            .set(currency, rateToUSD, computeTTL(fiatCacheRateCron).plusSeconds(TTL_BUFFER));
+                            .set(currency, rateToUSD, getTTL(fiatCacheRateCron));
 
                     // save to Mongo
                     Currency currencyDoc = new Currency(
                             currency,
-                            LocalDateTime.now(),
+                            now,
                             rateToUSD
                     );
                     Mono<Currency> saveToMongo = currencyRepository.save(currencyDoc);
@@ -69,13 +70,14 @@ public class UpdateRateService {
                     String currency = entry.getKey();
                     BigDecimal rateToUSD = entry.getValue();
                     return reactiveRedisTemplate.opsForValue()
-                            .set(currency, rateToUSD, computeTTL(cryptoCacheRateCron).plusSeconds(TTL_BUFFER));
+                            .set(currency, rateToUSD, getTTL(cryptoCacheRateCron));
                 })
                 .then();
     }
 
     // Save crypto rate to mongo
     public Mono<Void> saveCryptoRateToDb() {
+        LocalDateTime now = LocalDateTime.now();
         return currencyRateClient.getCryptoRates()
                 .flatMapMany(map -> Flux.fromIterable(map.entrySet()))
                 .flatMap(entry -> {
@@ -84,13 +86,17 @@ public class UpdateRateService {
 
                     Currency currencyDoc = new Currency(
                             currency,
-                            LocalDateTime.now(),
+                            now,
                             rateToUSD
                     );
 
                     return currencyRepository.save(currencyDoc);
                 })
                 .then();
+    }
+
+    private Duration getTTL(String cron) {
+        return computeTTL(cron).plusSeconds(TTL_BUFFER);
     }
 
 }
