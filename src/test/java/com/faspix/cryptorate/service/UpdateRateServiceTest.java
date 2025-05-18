@@ -1,7 +1,6 @@
 package com.faspix.cryptorate.service;
 
 import com.faspix.cryptorate.client.CurrencyRateClient;
-import com.faspix.cryptorate.dto.ResponseHistoryDTO;
 import com.faspix.cryptorate.entity.Currency;
 import com.faspix.cryptorate.repository.CurrencyRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,21 +11,17 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.data.redis.core.ReactiveValueOperations;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import java.math.BigDecimal;
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-import static utility.CurrencyFactory.makeCurrency;
-import static utility.CurrencyFactory.makeHistoryDTO;
+import static com.faspix.cryptorate.utility.CurrencyFactory.makeCurrency;
 
 @ExtendWith(MockitoExtension.class)
 public class UpdateRateServiceTest {

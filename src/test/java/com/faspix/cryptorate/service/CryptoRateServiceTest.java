@@ -16,8 +16,8 @@ import java.time.LocalDateTime;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
-import static utility.CurrencyFactory.makeCurrency;
-import static utility.CurrencyFactory.makeHistoryDTO;
+import static com.faspix.cryptorate.utility.CurrencyFactory.makeCurrency;
+import static com.faspix.cryptorate.utility.CurrencyFactory.makeHistoryDTO;
 
 @ExtendWith(MockitoExtension.class)
 public class CryptoRateServiceTest {

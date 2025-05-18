@@ -12,6 +12,8 @@ import java.util.Optional;
 
 public class CronUtility {
 
+    private static final Duration FALLBACK_TTL = Duration.ofMinutes(5);
+
     private static final CronParser PARSER = new CronParser(CronDefinitionBuilder.instanceDefinitionFor(CronType.SPRING));
 
     public static Duration computeTTL(String cronExpression) {
@@ -22,6 +24,6 @@ public class CronUtility {
         Optional<ZonedDateTime> next = executionTime.nextExecution(now);
         return next
                 .map(nextTime -> Duration.between(now, nextTime))
-                .orElse(Duration.ofMinutes(5)); // fallback TTL
+                .orElse(FALLBACK_TTL); // fallback
     }
 }

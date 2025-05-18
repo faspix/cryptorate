@@ -1,4 +1,4 @@
-package utility;
+package com.faspix.cryptorate.utility;
 
 import com.faspix.cryptorate.dto.HistoryItem;
 import com.faspix.cryptorate.dto.ResponseHistoryDTO;
