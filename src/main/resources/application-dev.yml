@@ -1,0 +1,12 @@
+spring:
+  data:
+    mongodb:
+      uri: ${DATA_MONGODB_URI:mongodb://localhost:27017/currency_history}
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+#logging:
+#  level:
+#    root: INFO
+#    org.springframework.web: INFO

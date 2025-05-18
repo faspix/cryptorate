@@ -14,7 +14,7 @@ public class FiatRateSchedulerImpl implements FiatRateScheduler {
     private final UpdateRateService updateRateService;
 
     @Override
-    @Scheduled(cron = "${scheduling.fiat-rate-cron}")
+    @Scheduled(cron = "${scheduler.fiat-rate-cron}")
     public void updateFiatRates() {
         updateRateService.updateFiatRate()
                 .doOnError(e -> log.error("Failed to update fiat cache", e))

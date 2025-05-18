@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
-@Document(collation = "currency_history")
+@Document(collection = "currency_history")
 public class Currency {
 
     @Id

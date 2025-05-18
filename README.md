@@ -24,12 +24,11 @@ Designed as a monolithic API to fetch, cache, and store exchange rates using Red
 - Java 17+
 - Spring Boot (Reactive)
 - Spring WebFlux
-- Spring Data Reactive MongoDB
-- Spring Reactive Redis Template
 - MongoDB (NoSQL document store)
 - Redis (in-memory cache with TTL)
 - External Currency APIs (fiat and crypto)
 - JUnit 5 + Mockito for testing
+- Docker + Docker Compose
 
 ## API Endpoints
 ### All endpoints are also available at `/swagger-ui/index.html`

@@ -14,7 +14,7 @@ public class CryptoRateSchedulerImpl implements CryptoRateScheduler {
     private final UpdateRateService updateRateService;
 
     @Override
-    @Scheduled(cron = "${scheduling.crypto-rate-cron}")
+    @Scheduled(cron = "${scheduler.crypto-rate-cron}")
     public void updateCryptoRates() {
         updateRateService.updateCryptoRate()
                 .doOnError(e -> log.error("Failed to update crypto cache", e))
@@ -22,7 +22,7 @@ public class CryptoRateSchedulerImpl implements CryptoRateScheduler {
     }
 
     @Override
-    @Scheduled(cron = "${scheduling.crypto-save-history-cron}")
+    @Scheduled(cron = "${scheduler.crypto-save-history-cron}")
     public void saveCryptoHistory() {
         updateRateService.saveCryptoRateToDb()
                 .doOnError(e -> log.error("Failed to save crypto history", e))
