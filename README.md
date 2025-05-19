@@ -27,7 +27,7 @@ Designed as a monolithic API to fetch, cache, and store exchange rates using Red
 - MongoDB (NoSQL document store)
 - Redis (in-memory cache with TTL)
 - External Currency APIs (fiat and crypto)
-- JUnit 5 + Mockito for testing
+- JUnit 5 + Mockito + Testcontainers for testing
 - Docker + Docker Compose
 
 ## API Endpoints
