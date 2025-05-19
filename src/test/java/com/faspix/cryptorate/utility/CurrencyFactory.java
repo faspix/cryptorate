@@ -24,7 +24,7 @@ public class CurrencyFactory {
                 "USD",
                 "USD",
                 Collections.singletonList(
-                        new HistoryItem(LocalDateTime.MIN, new BigDecimal("1.0000000000"))
+                        new HistoryItem(LocalDateTime.MIN, new BigDecimal("1.000000000000000"))
                 )
         );
     }

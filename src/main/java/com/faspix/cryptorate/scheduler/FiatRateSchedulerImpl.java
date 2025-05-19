@@ -19,5 +19,6 @@ public class FiatRateSchedulerImpl implements FiatRateScheduler {
         updateRateService.updateFiatRate()
                 .doOnError(e -> log.error("Failed to update fiat cache", e))
                 .subscribe();
+        log.info("Fiat rates have been updated");
     }
 }

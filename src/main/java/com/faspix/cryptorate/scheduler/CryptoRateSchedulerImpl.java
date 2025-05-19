@@ -19,6 +19,7 @@ public class CryptoRateSchedulerImpl implements CryptoRateScheduler {
         updateRateService.updateCryptoRate()
                 .doOnError(e -> log.error("Failed to update crypto cache", e))
                 .subscribe();
+        log.info("Crypto rates have been updated");
     }
 
     @Override
@@ -27,5 +28,6 @@ public class CryptoRateSchedulerImpl implements CryptoRateScheduler {
         updateRateService.saveCryptoRateToDb()
                 .doOnError(e -> log.error("Failed to save crypto history", e))
                 .subscribe();
+        log.info("Crypto rates have been saved to DB");
     }
 }

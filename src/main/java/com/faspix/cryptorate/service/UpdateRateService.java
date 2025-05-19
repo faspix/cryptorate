@@ -12,6 +12,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -69,11 +70,13 @@ public class UpdateRateService {
                 .flatMap(entry -> {
                     String currency = entry.getKey();
                     BigDecimal rateToUSD = entry.getValue();
+                    BigDecimal normalized = BigDecimal.ONE.divide(rateToUSD, 15, RoundingMode.HALF_UP);
                     return reactiveRedisTemplate.opsForValue()
-                            .set(currency, rateToUSD, getTTL(cryptoCacheRateCron));
+                            .set(currency, normalized, getTTL(cryptoCacheRateCron));
                 })
                 .then();
     }
+
 
     // Save crypto rate to mongo
     public Mono<Void> saveCryptoRateToDb() {

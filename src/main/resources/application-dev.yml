@@ -6,7 +6,7 @@ spring:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
 
-#logging:
-#  level:
-#    root: INFO
-#    org.springframework.web: INFO
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO

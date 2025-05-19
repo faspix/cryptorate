@@ -7,5 +7,11 @@ scheduler:
   crypto-rate-cron: "0 */5 * * * *"
   crypto-save-history-cron: "0 0 * * * *"
 
+api:
+  fiat:
+    url: https://open.er-api.com/v6/latest/USD
+  crypto:
+    url: https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd
+
 server:
   port: 8080
