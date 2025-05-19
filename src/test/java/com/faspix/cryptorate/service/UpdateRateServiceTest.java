@@ -44,6 +44,11 @@ public class UpdateRateServiceTest {
     private static final String fiatCron = "0 0 * * * *"; // every hour
     private static final String cryptoCron = "0 */5 * * * *"; // every 5 minutes
 
+    private static final Map<String, BigDecimal> rates = Map.of(
+            "USD", new BigDecimal("1.0"),
+            "EUR", new BigDecimal("0.9")
+    );
+
     @BeforeEach
     void setup() {
         // @Value fields
@@ -64,15 +69,15 @@ public class UpdateRateServiceTest {
 
     @Test
     void updateFiatRate_savesRatesToRedisAndMongo() {
-        Map<String, BigDecimal> rates = Map.of(
-                "USD", new BigDecimal("1.0"),
-                "EUR", new BigDecimal("0.9")
-        );
 
-        when(currencyRateClient.getFiatRates()).thenReturn(Mono.just(rates));
-        when(valueOperations.set(anyString(), any(), any(Duration.class))).thenReturn(Mono.just(true));
-        when(currencyRepository.save(any())).thenReturn(Mono.just(makeCurrency()));
-        when(reactiveRedisTemplate.opsForValue()).thenReturn(valueOperations);
+        when(currencyRateClient.getFiatRates())
+                .thenReturn(Mono.just(rates));
+        when(valueOperations.set(anyString(), any(), any(Duration.class)))
+                .thenReturn(Mono.just(true));
+        when(currencyRepository.save(any()))
+                .thenReturn(Mono.just(makeCurrency()));
+        when(reactiveRedisTemplate.opsForValue())
+                .thenReturn(valueOperations);
 
         Mono<Void> result = updateRateService.updateFiatRate();
 
@@ -85,14 +90,13 @@ public class UpdateRateServiceTest {
 
     @Test
     void updateCryptoRate_savesRatesToRedis() {
-        Map<String, BigDecimal> rates = Map.of(
-                "BTC", new BigDecimal("30000"),
-                "ETH", new BigDecimal("2000")
-        );
 
-        when(currencyRateClient.getCryptoRates()).thenReturn(Mono.just(rates));
-        when(valueOperations.set(anyString(), any(), any(Duration.class))).thenReturn(Mono.just(true));
-        when(reactiveRedisTemplate.opsForValue()).thenReturn(valueOperations);
+        when(currencyRateClient.getCryptoRates())
+                .thenReturn(Mono.just(rates));
+        when(valueOperations.set(anyString(), any(), any(Duration.class)))
+                .thenReturn(Mono.just(true));
+        when(reactiveRedisTemplate.opsForValue())
+                .thenReturn(valueOperations);
 
         Mono<Void> result = updateRateService.updateCryptoRate();
 
@@ -105,13 +109,11 @@ public class UpdateRateServiceTest {
 
     @Test
     void saveCryptoRateToDb_savesRatesToMongo() {
-        Map<String, BigDecimal> rates = Map.of(
-                "BTC", new BigDecimal("30000"),
-                "ETH", new BigDecimal("2000")
-        );
 
-        when(currencyRateClient.getCryptoRates()).thenReturn(Mono.just(rates));
-        when(currencyRepository.save(any())).thenReturn(Mono.just(makeCurrency()));
+        when(currencyRateClient.getCryptoRates())
+                .thenReturn(Mono.just(rates));
+        when(currencyRepository.save(any()))
+                .thenReturn(Mono.just(makeCurrency()));
 
         Mono<Void> result = updateRateService.saveCryptoRateToDb();
 
