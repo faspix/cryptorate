@@ -1,6 +1,7 @@
 package com.faspix.cryptorate.service;
 
-import com.faspix.cryptorate.client.CurrencyRateClient;
+import com.faspix.cryptorate.client.CryptoRateClient;
+import com.faspix.cryptorate.client.FiatRateClient;
 import com.faspix.cryptorate.entity.Currency;
 import com.faspix.cryptorate.repository.CurrencyRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,9 @@ public class UpdateRateService {
 
     private static final long TTL_BUFFER = 60;
 
-    private final CurrencyRateClient currencyRateClient;
+    private final FiatRateClient fiatRateClient;
+
+    private final CryptoRateClient cryptoRateClient;
 
     private final ReactiveRedisTemplate<String, BigDecimal> reactiveRedisTemplate;
 
@@ -40,7 +43,7 @@ public class UpdateRateService {
 
     public Mono<Void> updateFiatRate() {
         LocalDateTime now = LocalDateTime.now();
-        return currencyRateClient.getFiatRates() // Mono<Map<String, BigDecimal>>
+        return fiatRateClient.getFiatRates() // Mono<Map<String, BigDecimal>>
                 .flatMapMany(map -> Flux.fromIterable(map.entrySet()))
                 .flatMap(entry -> {
                     String currency = entry.getKey();
@@ -65,7 +68,7 @@ public class UpdateRateService {
 
     // Save crypto rate to redis
     public Mono<Void> updateCryptoRate() {
-        return currencyRateClient.getCryptoRates()
+        return cryptoRateClient.getCryptoRates()
                 .flatMapMany(map -> Flux.fromIterable(map.entrySet()))
                 .flatMap(entry -> {
                     String currency = entry.getKey();
@@ -81,7 +84,7 @@ public class UpdateRateService {
     // Save crypto rate to mongo
     public Mono<Void> saveCryptoRateToDb() {
         LocalDateTime now = LocalDateTime.now();
-        return currencyRateClient.getCryptoRates()
+        return cryptoRateClient.getCryptoRates()
                 .flatMapMany(map -> Flux.fromIterable(map.entrySet()))
                 .flatMap(entry -> {
                     String currency = entry.getKey();

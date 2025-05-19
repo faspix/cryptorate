@@ -1,6 +1,7 @@
 package com.faspix.cryptorate.service;
 
-import com.faspix.cryptorate.client.CurrencyRateClient;
+import com.faspix.cryptorate.client.CryptoRateClient;
+import com.faspix.cryptorate.client.FiatRateClient;
 import com.faspix.cryptorate.entity.Currency;
 import com.faspix.cryptorate.repository.CurrencyRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +28,10 @@ import static com.faspix.cryptorate.utility.CurrencyFactory.makeCurrency;
 public class UpdateRateServiceTest {
 
     @Mock
-    private CurrencyRateClient currencyRateClient;
+    private FiatRateClient fiatRateClient;
+
+    @Mock
+    private CryptoRateClient cryptoRateClient;
 
     @Mock
     private ReactiveRedisTemplate<String, BigDecimal> reactiveRedisTemplate;
@@ -70,7 +74,7 @@ public class UpdateRateServiceTest {
     @Test
     void updateFiatRate_savesRatesToRedisAndMongo() {
 
-        when(currencyRateClient.getFiatRates())
+        when(fiatRateClient.getFiatRates())
                 .thenReturn(Mono.just(rates));
         when(valueOperations.set(anyString(), any(), any(Duration.class)))
                 .thenReturn(Mono.just(true));
@@ -91,7 +95,7 @@ public class UpdateRateServiceTest {
     @Test
     void updateCryptoRate_savesRatesToRedis() {
 
-        when(currencyRateClient.getCryptoRates())
+        when(cryptoRateClient.getCryptoRates())
                 .thenReturn(Mono.just(rates));
         when(valueOperations.set(anyString(), any(), any(Duration.class)))
                 .thenReturn(Mono.just(true));
@@ -110,7 +114,7 @@ public class UpdateRateServiceTest {
     @Test
     void saveCryptoRateToDb_savesRatesToMongo() {
 
-        when(currencyRateClient.getCryptoRates())
+        when(cryptoRateClient.getCryptoRates())
                 .thenReturn(Mono.just(rates));
         when(currencyRepository.save(any()))
                 .thenReturn(Mono.just(makeCurrency()));

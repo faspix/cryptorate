@@ -13,38 +13,14 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
-@RequiredArgsConstructor
 @Slf4j
-public class CurrencyRateClientImpl implements CurrencyRateClient {
+@RequiredArgsConstructor
+public class CryptoRateClientImpl implements CryptoRateClient {
 
     private final WebClient webClient = WebClient.builder().build();
 
-    @Value("${api.fiat.url}")
-    private String fiatApiUrl;
-
     @Value("${api.crypto.url}")
     private String cryptoApiUrl;
-
-    @Override
-    public Mono<Map<String, BigDecimal>> getFiatRates() {
-        return webClient.get()
-                .uri(fiatApiUrl)
-                .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
-                .map(response -> {
-                    Map<String, Object> ratesRaw = (Map<String, Object>) response.get("rates");
-                    return ratesRaw.entrySet().stream()
-                            .collect(Collectors.toMap(
-                                    Map.Entry::getKey,
-                                    e -> new BigDecimal(e.getValue().toString())
-                            ));
-                })
-                .onErrorResume(e -> {
-                    log.error("Failed to fetch fiat rates", e);
-                    return Mono.empty();
-                });
-    }
-
 
     @Override
     public Mono<Map<String, BigDecimal>> getCryptoRates() {
@@ -62,6 +38,5 @@ public class CurrencyRateClientImpl implements CurrencyRateClient {
                     return Mono.empty();
                 });
     }
-
 
 }
