@@ -24,9 +24,6 @@ services:
     container_name: mongo
     security_opt:
       - no-new-privileges:true
-    read_only: true
-    tmpfs:
-      - /tmp
     volumes:
       - mongo-data:/data/db
 
@@ -36,9 +33,6 @@ services:
     container_name: redis
     security_opt:
       - no-new-privileges:true
-    read_only: true
-    tmpfs:
-      - /tmp
 
 
 volumes:
