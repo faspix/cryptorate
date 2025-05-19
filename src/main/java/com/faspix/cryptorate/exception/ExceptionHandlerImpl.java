@@ -1,6 +1,8 @@
 package com.faspix.cryptorate.exception;
 
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -15,6 +17,17 @@ public class ExceptionHandlerImpl {
         return Mono.just(new ExceptionResponse(HttpStatus.NOT_FOUND.getReasonPhrase(), e));
     }
 
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    private Mono<ExceptionResponse> handleValidationException(final MethodArgumentNotValidException e) {
+        return Mono.just(new ExceptionResponse(HttpStatus.BAD_REQUEST.getReasonPhrase(), e));
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    private Mono<ExceptionResponse> handleConstraintViolationException(final ConstraintViolationException e) {
+        return Mono.just(new ExceptionResponse(HttpStatus.BAD_REQUEST.getReasonPhrase(), e));
+    }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

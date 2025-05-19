@@ -58,12 +58,12 @@ public class CryptoRateService {
         Flux<Currency> dataFrom = currencyRepository.findByCurrencyAndTimestampBetween(
                 from,
                 startDate.atStartOfDay(),
-                endDate.atStartOfDay()
+                endDate.plusDays(1).atStartOfDay()
         );
         Flux<Currency> dataTo = currencyRepository.findByCurrencyAndTimestampBetween(
                 to,
                 startDate.atStartOfDay(),
-                endDate.atStartOfDay()
+                endDate.plusDays(1).atStartOfDay()
         );
 
         return dataFrom.zipWith(dataTo, (currencyFrom, currencyTo) -> {
