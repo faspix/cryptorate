@@ -34,6 +34,8 @@ import static org.hamcrest.Matchers.*;
 @AutoConfigureWebTestClient
 public class CryptoRateControllerTest {
 
+    private static final String API_VERSION_URI = "/api/v1";
+
     @Container
     private static final MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:6.0")
             .withExposedPorts(27017);
@@ -75,7 +77,7 @@ public class CryptoRateControllerTest {
 
         webTestClient.get()
                 .uri(uriBuilder -> uriBuilder
-                        .path("/convert")
+                        .path(API_VERSION_URI + "/convert")
                         .queryParam("from", "BTC")
                         .queryParam("to", "ETH")
                         .queryParam("amount", "2")
@@ -98,7 +100,7 @@ public class CryptoRateControllerTest {
     void testConvertEndpoint_InvalidAmount() {
         webTestClient.get()
                 .uri(uriBuilder -> uriBuilder
-                        .path("/convert")
+                        .path(API_VERSION_URI + "/convert")
                         .queryParam("from", "BTC")
                         .queryParam("to", "ETH")
                         .queryParam("amount", "-1")
@@ -111,7 +113,7 @@ public class CryptoRateControllerTest {
     void testConvertEndpoint_RateNotFound() {
         webTestClient.get()
                 .uri(uriBuilder -> uriBuilder
-                        .path("/convert")
+                        .path(API_VERSION_URI + "/convert")
                         .queryParam("from", "BTC")
                         .queryParam("to", "ETH")
                         .queryParam("amount", "2")
@@ -131,7 +133,7 @@ public class CryptoRateControllerTest {
 
         webTestClient.get()
                 .uri(uriBuilder -> uriBuilder
-                        .path("/history")
+                        .path(API_VERSION_URI + "/history")
                         .queryParam("from", "BTC")
                         .queryParam("to", "ETH")
                         .queryParam("startDate", "2025-05-17")
@@ -155,7 +157,7 @@ public class CryptoRateControllerTest {
     void testHistoryEndpoint_NoData() {
         webTestClient.get()
                 .uri(uriBuilder -> uriBuilder
-                        .path("/history")
+                        .path(API_VERSION_URI + "/history")
                         .queryParam("from", "BTC")
                         .queryParam("to", "ETH")
                         .queryParam("startDate", "2025-05-18")
