@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class FiatRateSchedulerImpl implements FiatRateScheduler {
+public class FiatRateCronScheduler implements FiatRateScheduler {
 
     private final UpdateRateService updateRateService;
 

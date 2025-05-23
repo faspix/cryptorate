@@ -17,7 +17,7 @@ public class CryptoRateSchedulerTest {
     private UpdateRateService updateRateService;
 
     @InjectMocks
-    private CryptoRateSchedulerImpl cryptoRateScheduler;
+    private CryptoRateCronScheduler cryptoRateScheduler;
 
     @Test
     void testUpdateCryptoRates_Success() {

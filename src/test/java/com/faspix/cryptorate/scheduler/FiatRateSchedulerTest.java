@@ -17,7 +17,7 @@ public class FiatRateSchedulerTest {
     private UpdateRateService updateRateService;
 
     @InjectMocks
-    private FiatRateSchedulerImpl fiatRateScheduler;
+    private FiatRateCronScheduler fiatRateScheduler;
 
     @Test
     void testUpdateFiatRates_Success() {

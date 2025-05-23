@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class CryptoRateSchedulerImpl implements CryptoRateScheduler {
+public class CryptoRateCronScheduler implements CryptoRateScheduler {
 
     private final UpdateRateService updateRateService;
 

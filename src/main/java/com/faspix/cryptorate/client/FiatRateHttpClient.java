@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class FiatRateClientImpl implements FiatRateClient {
+public class FiatRateHttpClient implements FiatRateClient {
 
     private final WebClient webClient = WebClient.builder().build();
 

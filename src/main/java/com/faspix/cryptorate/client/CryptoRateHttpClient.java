@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class CryptoRateClientImpl implements CryptoRateClient {
+public class CryptoRateHttpClient implements CryptoRateClient {
 
     private final WebClient webClient = WebClient.builder().build();
 
